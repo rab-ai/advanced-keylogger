@@ -35,7 +35,6 @@ This Python-based tool simulates a real-world spyware/keylogger scenario for **e
 - 🧠 **System Info Collector** — Gathers device/OS/hostname/network info.
 - 🔐 **AES File Encryption** — Secures output files with a generated key.
 - 📬 **Email Reporting** — Sends collected data as encrypted attachments.
-- 🗑️ **Auto Cleanup** — Deletes the output directory after email is sent.
 - 💻 **Standalone EXE Support** — Fully packaged with PyInstaller.
 
 ---
@@ -121,27 +120,6 @@ If sharing the project, provide a sample template instead:
   "recipient_email": "receiver_email@gmail.com",
   "interval": 60
 }
-```
-
-🗑️ Optional: Delete Output After Email Sent
-If you want to automatically delete the collected data after successful email reporting:
-
-Make sure email is enabled and successfully configured.
-
-At the end of main.py, after final reporting, call:
-
-```python
-import shutil
-shutil.rmtree(output_dir)
-```
-
-Example:
-```python
-if args.email and reporter and reporter.configured:
-    print("Sending final email report...")
-    reporter.send_report(output_dir)
-    # ✅ Delete output folder after sending
-    shutil.rmtree(output_dir)
 ```
 
 ✅ Summary
