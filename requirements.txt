@@ -1,0 +1,6 @@
+pynput==1.7.6
+pillow==10.0.0
+pywin32==306; platform_system=="Windows"
+sounddevice==0.4.6
+scipy==1.11.3
+cryptography==41.0.3
