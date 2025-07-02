@@ -121,6 +121,26 @@ If sharing the project, provide a sample template instead:
   "interval": 60
 }
 ```
+---
+
+## 🔐 File Encryption & Decryption
+
+All collected output files (screenshots, keylogs, clipboard logs, system info, and audio) are **AES-encrypted** before being emailed or saved, ensuring data confidentiality.
+
+Each execution generates a **unique key** stored in `encryption.key`, located in the output folder.
+
+---
+
+## 🔓 How to Decrypt Encrypted Files
+
+To decrypt any `.enc` file collected during execution, use the included `decryption.py` script.
+
+### 🛠️ Usage
+
+```bash
+python decryption.py encryption.key file/that/wanted/to/decrypt.enc
+
+
 
 ✅ Summary
 Use config.json to safely store credentials.
