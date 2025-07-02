@@ -1,0 +1,48 @@
+import platform
+import socket
+import requests
+import datetime
+import json
+import os
+
+class SystemInfoCollector:
+    def __init__(self, output_file="system_info.json"):
+        """Initialize system info collector with output file."""
+        self.output_file = output_file
+        
+    def collect_info(self):
+        """Collect system information and save to file."""
+        try:
+            # Dictionary to store system information
+            system_info = {
+                "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "platform": platform.system(),
+                "platform_release": platform.release(),
+                "platform_version": platform.version(),
+                "architecture": platform.machine(),
+                "hostname": socket.gethostname(),
+                "processor": platform.processor(),
+                "username": os.getlogin(),
+            }
+            
+            # Try to get public IP address (requires internet connection)
+            try:
+                ip_response = requests.get('https://api.ipify.org?format=json', timeout=5)
+                if ip_response.status_code == 200:
+                    system_info["public_ip"] = ip_response.json()['ip']
+            except:
+                system_info["public_ip"] = "Could not determine"
+                
+            # Ensure directory exists
+            os.makedirs(os.path.dirname(self.output_file) if os.path.dirname(self.output_file) else '.', exist_ok=True)
+                
+            # Write to file
+            with open(self.output_file, 'w') as f:
+                json.dump(system_info, f, indent=4)
+                
+            print(f"System information collected and saved to {self.output_file}")
+            return system_info
+            
+        except Exception as e:
+            print(f"Error collecting system information: {e}")
+            return None
